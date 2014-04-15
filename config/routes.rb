@@ -1,4 +1,15 @@
 WikiCollabTool::Application.routes.draw do
+  get "articles/index"
+  get "articles/show"
+  get "articles/new"
+  get "articles/edit"
+  get "welcome/index"
+  get "welcome/about"
+
+  resources :wikis
+
+  root to: "welcome#index"
+  
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
