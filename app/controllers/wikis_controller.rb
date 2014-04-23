@@ -1,16 +1,16 @@
 class WikisController < ApplicationController
-  before_action :load_wiki, only: [:edit, :show]
+  before_action :load_wiki, only: [:edit, :show, :update]
 
   def new
     @wiki = Wiki.new
   end
 
   def edit  
-    @wiki = Wiki.find(params[:id]) 
   end
 
   def show   
-    @wiki = Wiki.find(params[:id]) 
+    @articles = @wiki.articles
+    @collaborations = @wiki.collaborations
   end
 
   def index
@@ -19,8 +19,9 @@ class WikisController < ApplicationController
 
   def create
     @wiki = Wiki.new(wiki_params)
+    Collaboration.create(wiki: @wiki, user: current_user)
     if @wiki.save
-      redirect_to @wiki, notice: "Wiki was created successfully."
+      redirect_to @wiki, notice: "Wiki creation successful!"
     else
       flash[:error] = "Error creating wiki. Please try again."
       render :new
@@ -28,9 +29,8 @@ class WikisController < ApplicationController
   end
 
   def update
-    @wiki = Wiki.find(params[:id])
     if @wiki.update_attributes(wiki_params)
-      redirect_to @wiki
+      redirect_to @wiki, notice: "Wiki update successful!"
     else
       flash[:error] = "Error updating wiki. Please try again"
       render :edit
@@ -47,7 +47,7 @@ private
   end
 
   def wiki_params
-    params.require(:wiki).permit(:name, :description)
+    params.require(:wiki).permit(:name, :description, :article_id)
   end
 
 end

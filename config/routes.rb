@@ -1,13 +1,13 @@
 WikiCollabTool::Application.routes.draw do
-  get "articles/index"
-  get "articles/show"
-  get "articles/new"
-  get "articles/edit"
-  get "welcome/index"
-  get "welcome/about"
 
-  resources :wikis
+  
+  devise_for :users
+  resources :wikis do
+    resources :collaborations , only: [:index, :create, :destroy]
+    resources :articles, except: [:index]
+  end
 
+  get 'about' => 'welcome#about'
   root to: "welcome#index"
   
   # The priority is based upon order of creation: first created -> highest priority.

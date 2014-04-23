@@ -1,0 +1,11 @@
+<h1><%= @wiki.name %></h1>
+<p>Add Collaborator by Email</p>
+<%= form_tag wiki_collaborations_path(@wiki) do %>
+  <%= text_field_tag :email %>
+  <%= submit_tag %>
+<% end %>
+<h2>Collaborators:</h2>
+
+<% @wiki.users.each do |user| %>
+  <div><%= user.email %></div>
+<% end %>

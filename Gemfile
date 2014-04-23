@@ -3,6 +3,13 @@ source 'https://rubygems.org'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.0.3'
 
+# Pundit for authorization
+gem 'pundit'
+
+#devise and figaro for users functionality and security
+gem 'devise'
+gem 'figaro'
+
 # Use sqlite3 as the database for Active Record
 gem 'sqlite3'
 
