@@ -1,8 +1,10 @@
 <h1><%= @wiki.name %></h1>
-<p>Add Collaborator by Email</p>
-<%= form_tag wiki_collaborations_path(@wiki) do %>
-  <%= text_field_tag :email %>
-  <%= submit_tag %>
+<% if policy(@collaboration).create? %>
+  <p>Add Collaborator by Email</p>
+  <%= form_tag wiki_collaborations_path(@wiki) do %>
+    <%= text_field_tag :email %>
+    <%= submit_tag %>
+  <% end %>
 <% end %>
 <h2>Collaborators:</h2>
 

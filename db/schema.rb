@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140421033232) do
+ActiveRecord::Schema.define(version: 20140428194315) do
 
   create_table "articles", force: true do |t|
     t.string   "title"
@@ -61,6 +61,9 @@ ActiveRecord::Schema.define(version: 20140421033232) do
     t.text     "description"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "private"
   end
+
+  add_index "wikis", ["private"], name: "index_wikis_on_private"
 
 end

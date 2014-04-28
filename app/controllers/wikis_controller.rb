@@ -3,22 +3,27 @@ class WikisController < ApplicationController
 
   def new
     @wiki = Wiki.new
+    authorize @wiki
   end
 
   def edit  
+    authorize @wiki
   end
 
   def show   
+    authorize @wiki
     @articles = @wiki.articles
     @collaborations = @wiki.collaborations
   end
 
   def index
     @wikis = Wiki.all
+    authorize @wikis
   end
 
   def create
     @wiki = Wiki.new(wiki_params)
+    authorize @wiki
     Collaboration.create(wiki: @wiki, user: current_user)
     if @wiki.save
       redirect_to @wiki, notice: "Wiki creation successful!"
@@ -29,6 +34,7 @@ class WikisController < ApplicationController
   end
 
   def update
+    authorize @wiki
     if @wiki.update_attributes(wiki_params)
       redirect_to @wiki, notice: "Wiki update successful!"
     else

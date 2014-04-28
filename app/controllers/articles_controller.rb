@@ -2,22 +2,23 @@ class ArticlesController < ApplicationController
   before_action :load_article, only: [:edit, :show, :update]
   before_action :load_wiki
 
-  def index
-  end
-
   def show
+    authorize @wiki
   end
 
   def new
     @article = Article.new
+    authorize @wiki
   end
 
   def edit
+    authorize @wiki
   end
 
   def create
     @article = Article.new(article_params)
     @article.wiki = @wiki
+    authorize @wiki
     if @article.save
       redirect_to [@wiki, @article], notice: "Article creation successful!"
     else
@@ -27,6 +28,7 @@ class ArticlesController < ApplicationController
   end
 
   def update
+    authorize @wiki
     if @article.update_attributes(article_params)
       redirect_to [@wiki, @article], notice: "Article update successful!"
     else

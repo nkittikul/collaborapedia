@@ -6,6 +6,12 @@ gem 'rails', '4.0.3'
 # Pundit for authorization
 gem 'pundit'
 
+# Redcarpet for markdown
+gem 'redcarpet'
+
+# Stripe for payments
+gem 'stripe'
+
 #devise and figaro for users functionality and security
 gem 'devise'
 gem 'figaro'

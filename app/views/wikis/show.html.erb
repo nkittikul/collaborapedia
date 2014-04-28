@@ -1,12 +1,20 @@
-<h1><%= @wiki.name %></h1>
-<p><%= @wiki.description %> </p>
-<%= link_to "Edit Wiki", edit_wiki_path, class: 'btn btn-success' %>
-<%= link_to "Edit Collaborators", wiki_collaborations_path(@wiki), class: 'btn btn-success' %>
-<%= link_to "New Article", new_wiki_article_path(@wiki), class: 'btn btn-success' %>
+<h1><%= markdown @wiki.name %></h1>
+<p><%= markdown @wiki.description %> </p>
+
+<% if policy(@wiki).edit? %>
+  <%= link_to "Edit Wiki", edit_wiki_path, class: 'btn btn-success' %>
+<% end %>
+<% if CollaborationPolicy.new(current_user, @wiki).index? %>
+  <%= link_to "View Collaborators", wiki_collaborations_path(@wiki), class: 'btn btn-success' %>
+<% end %>
+<% if ArticlePolicy.new(current_user, @wiki).new? %>
+  <%= link_to "New Article", new_wiki_article_path(@wiki), class: 'btn btn-success' %>
+<% end %>
+
 
 <h2>Articles:</h2>
 <% @articles.each do |article| %>
   <div>
-    <%= link_to article.title, wiki_article_path(article.wiki, article) %>
+    <%= link_to (markdown article.title), wiki_article_path(article.wiki, article) %>
   </div>
 <% end %>
