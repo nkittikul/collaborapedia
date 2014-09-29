@@ -23,6 +23,8 @@ class WikisController < ApplicationController
 
   def create
     @wiki = Wiki.new(wiki_params)
+    # @wiki.private = current_user.premium && params[:wiki][:private]
+    @wiki.private = policy(@wiki).private? && params[:wiki][:private]
     authorize @wiki
     Collaboration.create(wiki: @wiki, user: current_user)
     if @wiki.save
@@ -53,7 +55,7 @@ private
   end
 
   def wiki_params
-    params.require(:wiki).permit(:name, :description, :article_id)
+    params.require(:wiki).permit(:name, :description)
   end
 
 end

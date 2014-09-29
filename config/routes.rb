@@ -7,6 +7,8 @@ WikiCollabTool::Application.routes.draw do
     resources :articles, except: [:index]
   end
 
+  resources :charges, only: [:new, :create]
+  
   get 'about' => 'welcome#about'
   root to: "welcome#index"
   

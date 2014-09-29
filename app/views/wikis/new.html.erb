@@ -9,6 +9,10 @@
     <%= f.label :description %>
     <%= f.text_area :description, rows: 8, class: 'form-control', placeholder: "Enter wiki description" %>
   </div>
+    <div class="form-group">
+      <%= f.label :private %>
+      <%= f.check_box :private, current_user.premium ? {} : {disabled: ''} %>
+    </div> 
   <%= f.submit "Save", class: 'btn btn-success' %>
 <% end %>
 

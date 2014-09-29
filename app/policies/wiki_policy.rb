@@ -23,4 +23,8 @@ class WikiPolicy < ApplicationPolicy
     edit?
   end
 
+  def private?
+    user.present? && user.premium
+  end
+
 end
